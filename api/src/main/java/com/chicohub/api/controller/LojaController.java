@@ -21,6 +21,12 @@ public class LojaController {
 
     @PostMapping
     public ResponseEntity<?> cadastrar(@RequestBody Loja loja) { // Mudamos para ResponseEntity<?> por segurança
+        // Esta linha evita o erro feio de SQL que você recebeu
+        if (repository.existsByCnpj(loja.getCnpj())) {
+            return ResponseEntity.status(HttpStatus.CONFLICT)
+                    .body("Já existe uma loja cadastrada com este CNPJ.");
+        }
+
         try {
             BrasilApiDTO dadosExternos = lojaService.buscarDadosPorCnpj(loja.getCnpj());
 
