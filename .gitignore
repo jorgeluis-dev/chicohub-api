@@ -1,10 +1,10 @@
 /api/src/main/resources/application.properties
 
 HELP.md
-target/
-.mvn/wrapper/maven-wrapper.jar
-!**/src/main/**/target/
-!**/src/test/**/target/
+**/target/
+**/.mvn/
+api/target/
+api/.mvn/wrapper/maven-wrapper.jar
 
 ### STS ###
 .apt_generated
@@ -22,15 +22,15 @@ target/
 *.ipr
 
 ### NetBeans ###
-/nbproject/private/
-/nbbuild/
-/dist/
-/nbdist/
-/.nb-gradle/
-build/
-!**/src/main/**/build/
-!**/src/test/**/build/
+**/nbproject/private/
+**/nbbuild/
+**/dist/
+**/nbdist/
+**/.nb-gradle/
+**/build/
 
 ### VS Code ###
 .vscode/
+
+### Segurança ###
 **/application.properties
