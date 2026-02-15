@@ -1,67 +1,65 @@
-# 🐾 ChicoHub API – Gestão Inteligente para Petshops
+# 🐾 ChicoHub API – Intelligent Management for Pet Shops
 
-Esta API REST é o coração do ecossistema **ChicoHub**, desenvolvida para oferecer uma solução robusta de gerenciamento para petshops. O projeto evoluiu de um gerenciamento local para uma arquitetura moderna baseada em **Containers** e **Segurança Federada**.
+This REST API is the core of the **ChicoHub** ecosystem, designed to provide a robust management solution for pet shops. The project has evolved from a local management tool to a modern architecture based on **Containers** and **Federated Security**.
 
-## 🚀 Diferenciais Técnicos
+## 🚀 Technical Highlights
 
-* **Segurança com OAuth2 e Google:** Implementação de autenticação social que protege os dados dos pets, garantindo que cada dono acesse apenas suas próprias informações.
-* **Infraestrutura como Código (IaC):** Projeto totalmente dockerizado, permitindo o deploy e execução idêntica em qualquer ambiente via Docker Compose.
-* **Isolamento de Dados (Privacy by Design):** Uso do e-mail de autenticação para filtrar registros no banco de dados, garantindo privacidade total entre os usuários.
-* **Integração com BrasilAPI:** Cadastro de lojas automatizado através da busca de CNPJ, reduzindo erros de digitação e tempo de setup.
-* **Arquitetura Relacional Complexa:** Vínculos em cadeia (Loja -> Cliente -> Pet -> Serviço) garantindo rastreabilidade total.
+* **Google OAuth2 Security:** Implementation of social authentication that protects pet data, ensuring each owner accesses only their own information.
+* **Infrastructure as Code (IaC):** Fully containerized project, allowing for identical deployment and execution in any environment via **Docker Compose**.
+* **Data Isolation (Privacy by Design):** Use of authenticated email to filter database records, ensuring total privacy between users.
+* **BrasilAPI Integration:** Automated store registration via CNPJ lookup, reducing manual entry errors and setup time.
+* **Complex Relational Architecture:** Chain links (Store -> Client -> Pet -> Service) ensuring full data traceability.
 
-## 🛠️ Tecnologias e Ferramentas
+## 🛠️ Technologies & Tools
 
-* **Linguagem:** Java 17
+* **Language:** Java 17
 * **Framework:** Spring Boot 3.x
-* **Segurança:** Spring Security & OAuth2 (Google Login)
+* **Security:** Spring Security & OAuth2 (Google Login)
 * **DevOps:** Docker & Docker Compose
 * **ORM:** Spring Data JPA / Hibernate
-* **Banco de Dados:** MySQL
-* **Testes:** Postman
+* **Database:** MySQL
+* **Testing:** Postman
 
-## 🏗️ Estrutura do Projeto
+## 🏗️ Project Structure
 
-O projeto segue o padrão de camadas para separação de responsabilidades:
-* **`controller`**: Endpoints REST protegidos e gerenciamento de requisições.
-* **`domain`**: Entidades de negócio e mapeamento JPA complexo.
-* **`repository`**: Queries customizadas com filtros de isolamento por proprietário.
-* **`config`**: Configurações de segurança e infraestrutura (CORS, OAuth2, Docker).
+The project follows a layered pattern for separation of concerns:
+* **`controller`**: Manages protected REST endpoints and HTTP requests.
+* **`domain`**: Contains business entities and complex JPA mapping.
+* **`repository`**: Custom query interfaces with owner-based isolation filters.
+* **`config`**: Security and infrastructure configurations (CORS, OAuth2, Docker).
 
-## 📈 Jornada de Desenvolvimento (Sprints)
+## 📈 Development Journey (Sprints)
 
-### Sprint 1 a 5: Base e Regras de Negócio
-* Configuração do ecossistema de Lojas, Clientes, Pets e Serviços.
-* Integração com BrasilAPI e persistência em banco de dados relacional.
+### Sprints 1 to 5: Base & Business Rules
+* Setup of the Store, Client, Pet, and Service ecosystem.
+* BrasilAPI integration and relational database persistence.
 
-### Sprint 6: Segurança e Identidade
-* Implementação do Spring Security e integração com Google OAuth2.
-* Criação do endpoint `/meus-pets` com filtro automático por `donoEmail`.
+### Sprint 6: Security & Identity
+* Spring Security implementation with Google OAuth2 integration.
+* Creation of the `/meus-pets` endpoint with automatic filtering by `donoEmail`.
 
-### Sprint 7: Infraestrutura e DevOps
-* Criação de **Dockerfile** otimizado para a aplicação Java.
-* Orquestração com **Docker Compose** para gestão automatizada de containers e variáveis de ambiente.
+### Sprint 7: Infrastructure & DevOps
+* Creation of an optimized **Dockerfile** for the Java application.
+* Orchestration with **Docker Compose** for automated container and environment variable management.
 
+## 🚥 How to Run (via Docker)
 
+This is the recommended method to ensure the application runs with all dependencies properly configured.
 
-## 🚥 Como Executar (Via Docker)
-
-Este é o modo recomendado para garantir que a aplicação rode com todas as dependências configuradas.
-
-1. **Clone o repositório.**
-2. **Configure suas credenciais do Google** no terminal do Linux:
+1. **Clone the repository.**
+2. **Configure your Google credentials** in the Linux terminal:
    ```bash
-   export GOOGLE_CLIENT_ID=seu_id
-   export GOOGLE_CLIENT_SECRET=sua_chave
+   export GOOGLE_CLIENT_ID=your_id
+   export GOOGLE_CLIENT_SECRET=your_secret
 
 
-##Compile o projeto:
+##Build the project:
 
 ./mvnw clean package -DskipTests
 
-##Suba o container:
+##Launch the container:
 
 docker compose up -d
 
-##Acesse no navegador: http://localhost:8080/api/pets/meus-pets
+##Access in the browser: http://localhost:8080/api/pets/meus-pets
 
