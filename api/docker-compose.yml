@@ -1,0 +1,11 @@
+version: '3.8'
+services:
+  chicohub-api:
+    image: chicohub-api
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      - GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
+      - GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET}
+    restart: always
