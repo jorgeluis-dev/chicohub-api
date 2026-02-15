@@ -18,7 +18,13 @@ public class PetController {
     private PetRepository repository;
 
     @PostMapping
-    public ResponseEntity<Pet> cadastrar(@RequestBody Pet pet) {
+    public ResponseEntity<Pet> cadastrar(@RequestBody Pet pet, @AuthenticationPrincipal OAuth2User principal) {
+        // Pega o e-mail de quem está logado agora
+        String emailLogado = principal.getAttribute("email");
+
+        // "Carimba" o pet com o e-mail do dono antes de salvar
+        pet.setDonoEmail(emailLogado);
+
         Pet novoPet = repository.save(pet);
         return ResponseEntity.status(HttpStatus.CREATED).body(novoPet);
     }
@@ -37,5 +43,14 @@ public class PetController {
         String nome = principal.getAttribute("name");
         String email = principal.getAttribute("email");
         return "Olá, " + nome + "! Seu e-mail cadastrado no Google é: " + email;
+    }
+
+    @GetMapping("/meus-pets")
+    public List<Pet> listarMeusPets(@AuthenticationPrincipal OAuth2User principal) {
+        // 1. Pegamos o e-mail de quem está logado no Google
+        String emailLogado = principal.getAttribute("email");
+
+        // 2. Buscamos no banco apenas os pets desse e-mail
+        return repository.findByDonoEmail(emailLogado);
     }
 }
