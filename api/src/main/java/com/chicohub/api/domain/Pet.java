@@ -18,4 +18,8 @@ public class Pet {
     @ManyToOne // Muitos pets pertencem a UMA loja
     @JoinColumn(name = "loja_id", nullable = false)
     private Loja loja;
+
+    @ManyToOne //Muitos Pets pertencem a um cliente
+    @JoinColumn(name = "cliente_id")
+    private Cliente cliente;
 }
