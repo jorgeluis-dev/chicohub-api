@@ -22,7 +22,7 @@ public class PetController {
     }
 
     @GetMapping("/loja/{lojaId}")
-public List<Pet> listarPorLoja(@PathVariable Long lojaId) {
-    return repository.findByLojaId(lojaId);
-}
+    public List<Pet> listarPorLoja(@PathVariable Long lojaId) {
+        return repository.findByLojaId(lojaId);
+    }
 }
