@@ -1,6 +1,7 @@
 package com.chicohub.api.controller;
 
 import com.chicohub.api.domain.Pet;
+import com.chicohub.api.dto.PetResponseDTO;
 import com.chicohub.api.repository.PetRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,17 +19,23 @@ public class PetController {
     private PetRepository repository;
 
     @PostMapping
-    public ResponseEntity<Pet> cadastrar(@RequestBody Pet pet, @AuthenticationPrincipal OAuth2User principal) {
-        // AuthTestOnly - Forçamos o e-mail do dono que já existe no DBeaver
+    public ResponseEntity<PetResponseDTO> cadastrar(@RequestBody Pet pet,
+            @AuthenticationPrincipal OAuth2User principal) {
+        // Mantém sua trava de e-mail para o Postman
         String emailLogado = "jorgeluis.geek@gmail.com";
         pet.setDonoEmail(emailLogado);
 
-        // --- ADICIONE ESTAS LINHAS PARA TESTE SE NECESSÁRIO ---
-        // Se o seu Pet tem um relacionamento com Loja, precisamos carimbar o ID 1
-        // ----------------------------------------
-
         Pet novoPet = repository.save(pet);
-        return ResponseEntity.status(HttpStatus.CREATED).body(novoPet);
+
+        // Criamos o DTO para o JSON vir limpo (sem nulls)
+        PetResponseDTO resposta = new PetResponseDTO(
+                novoPet.getId(),
+                novoPet.getNome(),
+                novoPet.getEspecie(),
+                novoPet.getRaca(),
+                novoPet.getDonoEmail());
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(resposta);
     }
 
     @GetMapping("/loja/{lojaId}")
